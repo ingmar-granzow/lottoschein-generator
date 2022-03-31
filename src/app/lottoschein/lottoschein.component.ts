@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+import { LottoscheinService } from '../shared/services/lottoschein.service';
 import { Lottoschein } from '../shared/models/lottoschein.interface';
 
 @Component({
@@ -11,7 +13,9 @@ export class LottoscheinComponent implements OnInit {
 
   numberRange = new Array(49);
 
-  constructor() { }
+  constructor(
+    private lottoscheinService: LottoscheinService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +26,8 @@ export class LottoscheinComponent implements OnInit {
     for (let i = 0; i < amount; i++) {
       this.lottoschein.tippfelder[i] = {id: i+1, numbers: this.generateTippfeld()};
     }
+
+    this.persist();
   }
 
   private generateTippfeld() {
@@ -36,6 +42,12 @@ export class LottoscheinComponent implements OnInit {
 
   private drawNumber() {
     return Math.floor(Math.random() * 50);
+  }
+
+  private persist() {
+    this.lottoscheinService
+      .save(this.lottoschein)
+      .subscribe(lottoschein => this.lottoschein = lottoschein);
   }
 
 }
