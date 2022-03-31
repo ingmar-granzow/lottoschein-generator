@@ -1,0 +1,11 @@
+<h4>Lottoschein</h4>
+
+<div *ngFor="let tippfeld of lottoschein.tippfelder" class="tippfeld">
+	<h5>Tippfeld {{ tippfeld.id }}</h5>
+
+	<div class="numbers">
+		<span *ngFor="let in of numberRange; let i = index" [ngClass]="tippfeld.numbers.includes(i+1) ? 'selected' : ''">
+			{{ i+1 }}
+		</span>
+	</div>
+</div>
