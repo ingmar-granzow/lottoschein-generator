@@ -7,5 +7,6 @@
 	<button type="submit" [disabled]="!generatorForm.valid">Lottozahlen ziehen</button>
 </form>
 
-<app-lottoschein></app-lottoschein>
+<app-lottoschein [lottoschein]="lottoschein"></app-lottoschein>
 
+<app-viewer [lottoscheine]="lottoscheine"></app-viewer>

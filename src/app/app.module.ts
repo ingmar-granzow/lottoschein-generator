@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TippfeldComponent } from './tippfeld/tippfeld.component';
 import { LottoscheinComponent } from './lottoschein/lottoschein.component';
 import { GeneratorComponent } from './generator/generator.component';
 import { ViewerComponent } from './viewer/viewer.component';
@@ -13,7 +12,6 @@ import { ViewerComponent } from './viewer/viewer.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TippfeldComponent,
     LottoscheinComponent,
     GeneratorComponent,
     ViewerComponent
