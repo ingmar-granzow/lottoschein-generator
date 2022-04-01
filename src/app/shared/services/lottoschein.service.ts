@@ -10,7 +10,7 @@ import { Distribution } from '../models/distribution.interface';
 export class LottoscheinService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'http://0.0.0.0:3000/';
+  baseUrl = 'http://localhost:3000/';
 
   getLotteryTickets() {
     return this.http.get<Lottoschein[]>(this.baseUrl + 'lottery-tickets');
