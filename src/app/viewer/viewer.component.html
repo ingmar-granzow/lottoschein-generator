@@ -1,5 +1,12 @@
 <h2>Alle Lottoscheine</h2>
 
-<div *ngFor="let lottoschein of lottoscheine">
-	{{ lottoschein.id }}
+<div *ngIf="lottoschein.id">
+	<button (click)="back()">Zurück zur Übersicht</button>
+	<app-lottoschein [lottoschein]="lottoschein"></app-lottoschein>
+</div>
+
+<div *ngIf="!lottoschein.id" class="lottoscheine">
+	<button *ngFor="let lottoschein of lottoscheine" (click)="display(lottoschein)">
+		Lottoschein {{ lottoschein.id }}
+	</button>
 </div>

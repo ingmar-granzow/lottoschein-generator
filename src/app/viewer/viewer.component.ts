@@ -11,5 +11,15 @@ export class ViewerComponent {
 
   @Input() lottoscheine: Lottoschein[] = [];
 
+  lottoschein: Lottoschein = { tippfelder: [] };
+
   constructor() { }
+
+  display(lottoschein: Lottoschein) {
+     Object.assign(this.lottoschein, lottoschein);
+  }
+
+  back() {
+    this.lottoschein.id = undefined;
+  }
 }
