@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { LottoscheinService } from '../shared/services/lottoschein.service';
 import { Lottoschein } from '../shared/models/lottoschein.interface';
+import { Distribution } from '../shared/models/distribution.interface';
 
 @Component({
   selector: 'app-generator',
@@ -14,6 +15,8 @@ export class GeneratorComponent implements OnInit {
   lottoschein: Lottoschein = { tippfelder: [] };
   lottoscheine: Lottoschein[] = [];
 
+  distribution: number[] = Array(49);
+
   generatorForm = new FormGroup({
     anzahl: new FormControl('', [ Validators.required, Validators.min(1), Validators.max(12) ]),
   });
@@ -24,12 +27,15 @@ export class GeneratorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLotteryTickets();
+    this.getDistribution();
   }
 
   onSubmit() {
     let anzahl = this.generatorForm.value.anzahl;
     this.generate(anzahl);
-    this.persist();
+    this.persistLottoschein();
+    this.updateDistribution();
+    this.saveDistribution();
   }
 
   private getLotteryTickets() {
@@ -61,12 +67,33 @@ export class GeneratorComponent implements OnInit {
     return Math.floor(Math.random() * 50);
   }
 
-  private persist() {
+  private persistLottoschein() {
     this.lottoscheinService
       .save(this.lottoschein)
       .subscribe(lottoschein => {
         this.lottoschein = lottoschein;
         this.lottoscheine.push(lottoschein);
       });
+  }
+
+  private getDistribution() {
+    this.lottoscheinService.getDistribution().subscribe(
+      (data: Distribution) =>
+        (this.distribution = data.values)
+    );
+  }
+
+  private saveDistribution() {
+    this.lottoscheinService
+      .saveDistribution({id: 1, values: this.distribution})
+      .subscribe();
+  }
+
+  private updateDistribution() {
+    for (let tippfeld of this.lottoschein.tippfelder) {
+      for (let num of tippfeld.numbers) {
+        this.distribution[num-1]++;
+      }
+    }
   }
 }

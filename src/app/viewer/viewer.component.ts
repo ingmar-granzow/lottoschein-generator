@@ -9,6 +9,7 @@ import { Lottoschein } from '../shared/models/lottoschein.interface';
 })
 export class ViewerComponent {
 
+  @Input() distribution: number[] = Array(49);
   @Input() lottoscheine: Lottoschein[] = [];
 
   lottoschein: Lottoschein = { tippfelder: [] };

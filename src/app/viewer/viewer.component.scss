@@ -1,5 +1,30 @@
+.column {
+    display: inline-block;
+    margin-right: 100px;
+}
+
 .lottoscheine {
 	display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    button {
+        margin-bottom: 5px;
+    }
+}
+
+.distribution {
+    display: inline-grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 5px;
+
+    .element {
+        text-align: right;
+    }
+
+    .emph {
+        font-weight: bold;
+    }
 }
