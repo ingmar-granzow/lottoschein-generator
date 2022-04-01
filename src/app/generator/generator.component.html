@@ -1,10 +1,19 @@
 <h1>Lottoschein Generator</h1>
 
 <form [formGroup]="generatorForm" (ngSubmit)="onSubmit()">
-	<label for="anzahl">Anzahl Tippfelder: </label>
-	<input id="anzahl" type="number" min="1" max="12" formControlName="anzahl">
+	<div class="formElement">
+		<label for="anzahl">Anzahl Tippfelder: </label>
+		<input id="anzahl" type="number" min="1" max="12" formControlName="anzahl">
+	</div>
 
-	<button type="submit" [disabled]="!generatorForm.valid">Lottozahlen ziehen</button>
+	<div class="formElement">
+		<input id="superzahl" type="checkbox" formControlName="superzahl">
+		<label for="superzahl">Superzahl ziehen?</label>
+	</div>
+
+	<div class="formElement">
+		<button type="submit" [disabled]="!generatorForm.valid">Lottozahlen ziehen</button>
+	</div>
 </form>
 
 <app-lottoschein [lottoschein]="lottoschein"></app-lottoschein>

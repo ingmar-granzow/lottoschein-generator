@@ -19,6 +19,7 @@ export class GeneratorComponent implements OnInit {
 
   generatorForm = new FormGroup({
     anzahl: new FormControl('', [ Validators.required, Validators.min(1), Validators.max(12) ]),
+    superzahl: new FormControl(''),
   });
 
   constructor(
@@ -32,7 +33,9 @@ export class GeneratorComponent implements OnInit {
 
   onSubmit() {
     let anzahl = this.generatorForm.value.anzahl;
-    this.generate(anzahl);
+    let superzahl: boolean = this.generatorForm.value.superzahl;
+
+    this.generate(anzahl, superzahl);
     this.persistLottoschein();
     this.updateDistribution();
     this.saveDistribution();
@@ -45,11 +48,15 @@ export class GeneratorComponent implements OnInit {
     );
   }
 
-  private generate(amount: number) {
+  private generate(amount: number, superzahl: boolean) {
     this.lottoschein = { tippfelder: [] };
 
     for (let i = 0; i < amount; i++) {
       this.lottoschein.tippfelder[i] = {id: i+1, numbers: this.generateTippfeld()};
+    }
+
+    if (superzahl) {
+      this.lottoschein.superzahl = this.drawNumber(10);
     }
   }
 
@@ -57,15 +64,16 @@ export class GeneratorComponent implements OnInit {
     let numbers = [];
 
     for (let i = 0; i < 6; i++) {
-      numbers.push(this.drawNumber());
+      numbers.push(this.drawNumber(50));
     }
 
     return numbers;
   }
 
-  private drawNumber() {
-    return Math.floor(Math.random() * 50);
+  private drawNumber(max: number) {
+    return Math.floor(Math.random() * max);
   }
+
 
   private persistLottoschein() {
     this.lottoscheinService
