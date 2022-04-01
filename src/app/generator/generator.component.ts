@@ -61,10 +61,15 @@ export class GeneratorComponent implements OnInit {
   }
 
   private generateTippfeld() {
-    let numbers = [];
+    let numbers: number[] = [];
+    let num: number;
 
     for (let i = 0; i < 6; i++) {
-      numbers.push(this.drawNumber(50));
+      num = this.drawNumber(49) + 1;
+      while (numbers.includes(num)) {
+        num = this.drawNumber(49) + 1;
+      }
+      numbers.push(num);
     }
 
     return numbers;
