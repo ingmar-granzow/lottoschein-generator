@@ -18,9 +18,9 @@
 		<h2>Globale Häufigkeitsverteilung</h2>
 
 		<div class="distribution">
-			<div *ngFor="let item of distribution; let i = index" class="element">
-				{{ i+1 }}: <span class="emph">{{ item }}</span>
-			</div>
+			<span *ngFor="let item of distribution; let i = index">
+				{{ item }}
+			</span>
 		</div>
 	</div>
 </div>
